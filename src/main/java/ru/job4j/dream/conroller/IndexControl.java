@@ -1,4 +1,4 @@
-package ru.job4j.dreamjob.conroller;
+package ru.job4j.dream.conroller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

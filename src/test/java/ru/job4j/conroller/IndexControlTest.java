@@ -1,4 +1,4 @@
-package ru.job4j.dreamjob.conroller;
+package ru.job4j.conroller;
 
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;

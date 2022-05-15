@@ -1,9 +1,8 @@
-package ru.job4j.dreamjob.dream.store;
+package ru.job4j.dream.store;
 
-import ru.job4j.dreamjob.dream.model.Post;
+import ru.job4j.dream.model.Post;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
