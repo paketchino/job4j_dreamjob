@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import ru.job4j.dream.model.Post;
 import ru.job4j.dream.store.PostStore;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Controller
 public class PostController {
 
@@ -17,9 +20,4 @@ public class PostController {
         return "posts";
     }
 
-    @GetMapping("/formAddPost")
-    public String addPost(Model model) {
-        model.addAttribute("post", new Post(0, "Заполните поле"));
-        return "addPost";
-    }
 }
