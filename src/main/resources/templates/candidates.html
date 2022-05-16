@@ -25,6 +25,8 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Имя</th>
+                <th scope="col">Описание</th>
+                <th scope="col">Дата</th>
             </tr>
             </thead>
             <tbody>
@@ -32,7 +34,7 @@
                 <td th:text="${candidate.id}" />
                 <td th:text="${candidate.name}" />
                 <td th:text="${candidate.desc}" />
-                <td th:text="${candidate.timeFormat}" />
+                <td th:text="${#temporals.format(candidate.timeFormat, 'dd-MM-yyyy HH:mm:ss')}" />
             </tr>
             </tbody>
         </table>

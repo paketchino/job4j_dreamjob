@@ -1,11 +1,6 @@
 package ru.job4j.dream.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Objects;
 
 public class Candidate {
@@ -13,18 +8,17 @@ public class Candidate {
     private int id;
     private String name;
     private String desc;
-
-    private LocalDate date = LocalDate.now();
+    private LocalDateTime created;
 
     public Candidate() {
 
     }
 
-    public Candidate(int id, String name, String desc, LocalDate date) {
+    public Candidate(int id, String name, String desc, LocalDateTime created) {
         this.id = id;
         this.name = name;
         this.desc = desc;
-        this.date = date;
+        this.created = created;
     }
 
     public int getId() {
@@ -51,12 +45,12 @@ public class Candidate {
         this.desc = desc;
     }
 
-    public LocalDate getTimeFormat() {
-        return date;
+    public LocalDateTime getTimeFormat() {
+        return created;
     }
 
-    public void setTimeFormat(LocalDate parsedDate) {
-        this.date = parsedDate;
+    public void setTimeFormat(LocalDateTime created) {
+        this.created = created;
     }
 
     @Override
@@ -68,13 +62,11 @@ public class Candidate {
             return false;
         }
         Candidate candidate = (Candidate) o;
-        return id == candidate.id && Objects.equals(name, candidate.name)
-                && Objects.equals(desc, candidate.desc)
-                && Objects.equals(date, candidate.date);
+        return id == candidate.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, desc, date);
+        return Objects.hash(id);
     }
 }
