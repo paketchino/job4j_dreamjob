@@ -20,4 +20,10 @@ public class PostController {
         return "posts";
     }
 
+    @GetMapping("/addPost")
+    public String addPost(Model model) {
+        model.addAttribute("post", new Post(0, "Заполните поле", "", LocalDateTime.now()));
+        return "addPost";
+    }
+
 }
