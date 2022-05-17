@@ -19,6 +19,10 @@ public class PostStore {
         posts.put(3, new Post(3, "Senior Java Job", "Бесценен", LocalDateTime.now()));
     }
 
+    public void add(Post post) {
+        posts.put(post.getId(), post);
+    }
+
     public static PostStore instOf() {
         return INST;
     }
