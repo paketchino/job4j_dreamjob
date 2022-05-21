@@ -21,6 +21,10 @@ public class PostStore {
         posts.put(3, new Post(3, "Senior Java Job", "Бесценен", LocalDateTime.now()));
     }
 
+    public static PostStore instOf() {
+        return INST;
+    }
+
     public void add(Post post) {
         posts.put(post.setId(postId.getAndIncrement()), post);
     }
@@ -33,9 +37,6 @@ public class PostStore {
         return posts.replace(post.getId(), post);
     }
 
-    public static PostStore instOf() {
-        return INST;
-    }
 
     public Collection<Post> findAll() {
         return posts.values();

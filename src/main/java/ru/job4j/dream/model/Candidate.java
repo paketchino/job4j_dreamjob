@@ -25,8 +25,9 @@ public class Candidate {
         return id;
     }
 
-    public void setId(int id) {
+    public int setId(int id) {
         this.id = id;
+        return id;
     }
 
     public String getName() {
