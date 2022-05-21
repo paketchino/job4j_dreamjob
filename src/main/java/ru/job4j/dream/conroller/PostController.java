@@ -37,16 +37,16 @@ public class PostController {
         return "redirect:/posts";
     }
 
+    @GetMapping("/updatePost/{postId}")
+    public String updatePost(Model model, @PathVariable("postId") int id) {
+        model.addAttribute("post", postStore.findById(id));
+        return "updatePost";
+    }
+
     @PostMapping("/updatePost")
     public String updatePost(@ModelAttribute Post post) {
         postStore.update(post);
         return "redirect:/posts";
-    }
-
-    @GetMapping("/updatePost/{post.id}")
-    public String updatePost(Model model, @PathVariable("postId") int id) {
-        model.addAttribute("post", postStore.findById(id));
-        return "updatePost";
     }
 
 }
