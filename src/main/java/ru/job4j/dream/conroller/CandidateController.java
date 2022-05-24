@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.service.CandidateService;
-
 import java.time.LocalDateTime;
 
 @Controller
