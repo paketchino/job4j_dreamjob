@@ -22,6 +22,7 @@ public class PostStore {
 
 
     public void add(Post post) {
+        post.setCreated(LocalDateTime.now());
         posts.put(post.setId(postId.getAndIncrement()), post);
     }
 
@@ -30,9 +31,9 @@ public class PostStore {
     }
 
     public Post update(Post post) {
+        post.setCreated(LocalDateTime.now());
         return posts.replace(post.getId(), post);
     }
-
 
     public Collection<Post> findAll() {
         return posts.values();

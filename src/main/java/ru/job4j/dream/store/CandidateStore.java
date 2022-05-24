@@ -1,6 +1,5 @@
 package ru.job4j.dream.store;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import ru.job4j.dream.model.Candidate;
 
@@ -23,6 +22,7 @@ public class CandidateStore {
     }
 
     public void add(Candidate candidate) {
+        candidate.setTimeFormat(LocalDateTime.now());
         candidates.put(candidate.setId(candiId.getAndIncrement()), candidate);
     }
 
@@ -31,6 +31,7 @@ public class CandidateStore {
     }
 
     public Candidate updateCandidate(Candidate candidate) {
+        candidate.setTimeFormat(LocalDateTime.now());
         return candidates.replace(candidate.getId(), candidate);
     }
 
