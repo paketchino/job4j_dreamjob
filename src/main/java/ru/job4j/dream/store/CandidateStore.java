@@ -18,9 +18,9 @@ public class CandidateStore {
     private AtomicInteger candiId = new AtomicInteger(4);
 
     private CandidateStore() {
-        candidates.put(1, new Candidate(1, "Sergey", "Junior Java Dev", LocalDateTime.now()));
-        candidates.put(2, new Candidate(2, "Alexsey", "Middle Java Dev", LocalDateTime.now()));
-        candidates.put(3, new Candidate(3, "Sanya", "Senior Java Dev", LocalDateTime.now()));
+        candidates.put(1, new Candidate(1, "Sergey", "Junior Java Dev",true, LocalDateTime.now()));
+        candidates.put(2, new Candidate(2, "Alexsey", "Middle Java Dev",true, LocalDateTime.now()));
+        candidates.put(3, new Candidate(3, "Sanya", "Senior Java Dev", true, LocalDateTime.now()));
     }
 
     public void add(Candidate candidate) {

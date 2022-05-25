@@ -8,16 +8,19 @@ public class Candidate {
     private int id;
     private String name;
     private String desc;
+
+    private boolean visible;
     private LocalDateTime created;
 
     public Candidate() {
 
     }
 
-    public Candidate(int id, String name, String desc, LocalDateTime created) {
+    public Candidate(int id, String name, String desc, boolean visible, LocalDateTime created) {
         this.id = id;
         this.name = name;
         this.desc = desc;
+        this.visible = visible;
         this.created = created;
     }
 
@@ -54,20 +57,24 @@ public class Candidate {
         this.created = created;
     }
 
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Candidate candidate = (Candidate) o;
-        return id == candidate.id;
+        return id == candidate.id && visible == candidate.visible && Objects.equals(name, candidate.name) && Objects.equals(desc, candidate.desc) && Objects.equals(created, candidate.created);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, name, desc, visible, created);
     }
 }

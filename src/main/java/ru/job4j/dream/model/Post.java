@@ -1,24 +1,28 @@
 package ru.job4j.dream.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Post {
+public class Post implements Serializable {
 
     private int id;
     private String name;
 
     private String desc;
 
+    private boolean visible;
+
     private LocalDateTime created;
 
     public Post() {
     }
 
-    public Post(int id, String name, String desc, LocalDateTime created) {
+    public Post(int id, String name, String desc, boolean visible, LocalDateTime created) {
         this.id = id;
         this.name = name;
         this.desc = desc;
+        this.visible = visible;
         this.created = created;
     }
 
@@ -55,20 +59,24 @@ public class Post {
         this.created = created;
     }
 
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Post post = (Post) o;
-        return id == post.id && Objects.equals(name, post.name) && Objects.equals(desc, post.desc) && Objects.equals(created, post.created);
+        return id == post.id && visible == post.visible && Objects.equals(name, post.name) && Objects.equals(desc, post.desc) && Objects.equals(created, post.created);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, desc, created);
+        return Objects.hash(id, name, desc, visible, created);
     }
 }

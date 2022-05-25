@@ -29,7 +29,7 @@ public class CandidateController {
 
     @GetMapping("/addCandidate")
     public String addCandidate(Model model) {
-        model.addAttribute("Candidate", new Candidate(0, "", "", LocalDateTime.now()));
+        model.addAttribute("Candidate", new Candidate(0, "", "", true, LocalDateTime.now()));
         return "addCandidate";
     }
 
