@@ -13,16 +13,19 @@ public class Post implements Serializable {
 
     private boolean visible;
 
+    private City city;
+
     private LocalDateTime created;
 
     public Post() {
     }
 
-    public Post(int id, String name, String desc, boolean visible, LocalDateTime created) {
+    public Post(int id, String name, String desc, boolean visible, City city, LocalDateTime created) {
         this.id = id;
         this.name = name;
         this.desc = desc;
         this.visible = visible;
+        this.city = city;
         this.created = created;
     }
 
@@ -59,6 +62,14 @@ public class Post implements Serializable {
         this.created = created;
     }
 
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
     public boolean isVisible() {
         return visible;
     }
@@ -69,14 +80,20 @@ public class Post implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Post post = (Post) o;
-        return id == post.id && visible == post.visible && Objects.equals(name, post.name) && Objects.equals(desc, post.desc) && Objects.equals(created, post.created);
+        return id == post.id && visible == post.visible
+                && Objects.equals(name, post.name) && Objects.equals(desc, post.desc)
+                && Objects.equals(city, post.city) && Objects.equals(created, post.created);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, desc, visible, created);
+        return Objects.hash(id, name, desc, visible, city, created);
     }
 }

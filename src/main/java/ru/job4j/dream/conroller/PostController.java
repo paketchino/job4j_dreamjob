@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import ru.job4j.dream.model.City;
 import ru.job4j.dream.model.Post;
+import ru.job4j.dream.service.CityService;
 import ru.job4j.dream.service.PostService;
 import java.time.LocalDateTime;
 
@@ -16,9 +18,11 @@ import java.time.LocalDateTime;
 public class PostController {
 
     private final PostService postService;
+    private final CityService cityService;
 
-    public PostController(PostService postService) {
+    public PostController(PostService postService, CityService cityService) {
         this.postService = postService;
+        this.cityService = cityService;
     }
 
     @GetMapping("/posts")
@@ -29,7 +33,7 @@ public class PostController {
 
     @GetMapping("/addPost")
     public String addPost(Model model) {
-        model.addAttribute("post", new Post(0, "Заполните поле", "",true, LocalDateTime.now()));
+        model.addAttribute("cities", cityService.getAllCities());
         return "addPost";
     }
 

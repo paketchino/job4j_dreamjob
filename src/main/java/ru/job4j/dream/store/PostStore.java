@@ -2,6 +2,7 @@ package ru.job4j.dream.store;
 
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Repository;
+import ru.job4j.dream.model.City;
 import ru.job4j.dream.model.Post;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -17,9 +18,9 @@ public class PostStore {
     private AtomicInteger postId = new AtomicInteger(4);
 
     private PostStore() {
-        posts.put(1, new Post(1, "Junior Java Job", "500к/сек", true, LocalDateTime.now()));
-        posts.put(2, new Post(2, "Middle Java Job", "800к/сек", true, LocalDateTime.now()));
-        posts.put(3, new Post(3, "Senior Java Job", "Бесценен",true, LocalDateTime.now()));
+        posts.put(1, new Post(1, "Junior Java Job", "500к/сек", true, new City(), LocalDateTime.now()));
+        posts.put(2, new Post(2, "Middle Java Job", "800к/сек", true, new City(), LocalDateTime.now()));
+        posts.put(3, new Post(3, "Senior Java Job", "Бесценен", true, new City(), LocalDateTime.now()));
     }
 
 

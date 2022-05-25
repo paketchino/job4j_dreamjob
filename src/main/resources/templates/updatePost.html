@@ -29,7 +29,7 @@
                 <a class="nav-item nav-link" href="@{/index}">Главная</a>
                 <a class="nav-item nav-link" th:href="@{/posts}">Вакансии</a>
                 <a class="nav-item nav-link active" th:href="@{/addPost}">Добавить вакансию</a>
-                <a class="nav-item nav-link" th:href="@{/cadidates}">Кандидаты</a>
+                <a class="nav-item nav-link" th:href="@{/candidates}">Кандидаты</a>
                 <a class="nav-item nav-link" th:href="@{/addCandidate}">Добавить кандидата</a>
             </div>
         </div>
@@ -43,6 +43,12 @@
                 <form th:action="@{/updatePost}" method="POST" th:object="${post}">
                 <input type="hidden" name="id" th:field="*{id}"/>
                     <div class="form-group">
+                        <div class="form-group">
+                            <label for="city.id">Город</label>
+                            <select class="form-control" id="city.id" name="city.id">
+                                <option th:each="city : ${cities}" th:value="${city.id}" th:text="${city.name}"></option>
+                            </select>
+                        </div>
                         <label for="name">Имя</label>
                         <input type="text" class="form-control" name="name" id="name" >
                         <label for="desc">Описание</label>
