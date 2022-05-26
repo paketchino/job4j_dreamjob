@@ -1,9 +1,10 @@
 package ru.job4j.dream.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Candidate {
+public class Candidate implements Serializable {
 
     private int id;
     private String name;
@@ -74,13 +75,11 @@ public class Candidate {
             return false;
         }
         Candidate candidate = (Candidate) o;
-        return id == candidate.id && visible == candidate.visible
-                && Objects.equals(name, candidate.name)
-                && Objects.equals(desc, candidate.desc) && Objects.equals(created, candidate.created);
+        return id == candidate.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, desc, visible, created);
+        return Objects.hash(id);
     }
 }

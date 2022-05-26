@@ -41,11 +41,11 @@ public class City {
             return false;
         }
         City city = (City) o;
-        return id == city.id && Objects.equals(name, city.name);
+        return id == city.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id);
     }
 }

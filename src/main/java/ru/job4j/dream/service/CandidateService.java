@@ -22,6 +22,7 @@ public class CandidateService {
     }
 
     public Candidate update(Candidate candidate) {
+        candidate.setVisible(true);
         return candidateStore.updateCandidate(candidate);
     }
 

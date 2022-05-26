@@ -87,13 +87,11 @@ public class Post implements Serializable {
             return false;
         }
         Post post = (Post) o;
-        return id == post.id && visible == post.visible
-                && Objects.equals(name, post.name) && Objects.equals(desc, post.desc)
-                && Objects.equals(city, post.city) && Objects.equals(created, post.created);
+        return id == post.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, desc, visible, city, created);
+        return Objects.hash(id);
     }
 }
