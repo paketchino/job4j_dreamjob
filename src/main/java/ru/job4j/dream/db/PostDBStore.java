@@ -17,7 +17,7 @@ import java.util.List;
 public class PostDBStore {
 
 
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
 
     private final BasicDataSource pool;
 
@@ -44,15 +44,15 @@ public class PostDBStore {
                 }
             }
         } catch (Exception e) {
-            logger.catching(e);
+            LOGGER.catching(e);
         }
         return posts;
     }
 
     public Post add(Post post) {
         try (Connection cn = pool.getConnection();
-            PreparedStatement preparedStatement = cn.prepareStatement
-                    ("insert into post(name, city_id, desc, visible, city, created) values (?, ?, ?, ?, ?, ?)",
+            PreparedStatement preparedStatement = cn.prepareStatement("insert into post(name, city_id, desc, visible, city, created) "
+                            + "values (?, ?, ?, ?, ?, ?)",
                     PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
             preparedStatement.setString(1, post.getName());
@@ -68,7 +68,7 @@ public class PostDBStore {
                 }
             }
         } catch (Exception e) {
-            logger.catching(e);
+            LOGGER.catching(e);
         }
         return post;
     }
@@ -91,7 +91,7 @@ public class PostDBStore {
                 }
             }
         } catch (Exception e) {
-            logger.catching(e);
+            LOGGER.catching(e);
         }
         return post;
     }
@@ -109,7 +109,7 @@ public class PostDBStore {
                 }
             }
         } catch (Exception e) {
-            logger.catching(e);
+            LOGGER.catching(e);
         }
         return post;
     }
