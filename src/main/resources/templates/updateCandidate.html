@@ -40,7 +40,7 @@
                 Редатирование вакансии вакансия.
             </div>
             <div class="card-body">
-                <form th:action="@{/updateCandidate}" method="POST" th:object="${candidate}">
+                <form th:action="@{/updateCandidate}" method="POST" th:object="${candidate}" enctype="multipart/form-data">
                     <input type="hidden" name="id" th:field="*{id}"/>
                     <div class="form-group">
                         <label for="name">Имя</label>
