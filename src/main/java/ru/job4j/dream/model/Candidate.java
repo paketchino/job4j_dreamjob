@@ -18,6 +18,14 @@ public class Candidate implements Serializable {
 
     }
 
+    public Candidate(int id, String name, String desc, boolean visible, LocalDateTime created) {
+        this.id = id;
+        this.name = name;
+        this.desc = desc;
+        this.visible = visible;
+        this.created = created;
+    }
+
     public Candidate(int id, String name, String desc,
                      byte[] photo, boolean visible, LocalDateTime created) {
         this.id = id;
