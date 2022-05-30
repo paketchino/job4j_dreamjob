@@ -38,7 +38,7 @@ public class PostDBStore {
                                     it.getString("name"),
                                     it.getString("desc"),
                                     it.getBoolean("visible"),
-                                    (City) it.getObject("city"),
+                                    new City(it.getInt("city_id")),
                                     it.getTimestamp("created").toLocalDateTime())
                     );
                 }
@@ -51,18 +51,18 @@ public class PostDBStore {
 
     public Post add(Post post) {
         try (Connection cn = pool.getConnection();
-            PreparedStatement preparedStatement = cn.prepareStatement("insert into post(name, city_id, desc, visible, city, created) "
-                            + "values (?, ?, ?, ?, ?, ?)",
+            PreparedStatement preparedStatement =
+                    cn.prepareStatement("insert into post(name, city_id, desc, visible, city, created) values (?, ?, ?, ?, ?, ?)",
                     PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
             preparedStatement.setString(1, post.getName());
             preparedStatement.setInt(2, post.getCity().getId());
             preparedStatement.setString(3, post.getDesc());
             preparedStatement.setBoolean(4, post.isVisible());
-            preparedStatement.setObject(5, post.getCity());
+            preparedStatement.setInt(5, post.getCity().getId());
             preparedStatement.setTimestamp(6, Timestamp.valueOf(post.getCreated()));
             preparedStatement.execute();
-            try (ResultSet id = preparedStatement.executeQuery()) {
+            try (ResultSet id = preparedStatement.getGeneratedKeys()) {
                 if (id.next()) {
                     post.setId(id.getInt("1"));
                 }
@@ -85,7 +85,7 @@ public class PostDBStore {
                             it.getString("name"),
                             it.getString("desc"),
                             it.getBoolean("visible"),
-                            (City) it.getObject("city_id"),
+                            new City(it.getInt("city_id")),
                             it.getTimestamp("created").toLocalDateTime()
                     );
                 }
@@ -98,16 +98,13 @@ public class PostDBStore {
 
     public Post update(Post post) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement preparedStatement = cn.prepareStatement("update post set name = ?, city_id = ? where id = ?")
+             PreparedStatement preparedStatement = cn.prepareStatement("update post set name = ?, desc = ?, city_id = ? where id = ?")
         ) {
             preparedStatement.setString(1, post.getName());
+            preparedStatement.setString(3, post.getDesc());
             preparedStatement.setInt(2, post.getCity().getId());
-            try (ResultSet it = preparedStatement.executeQuery()) {
-                if (it.next()) {
-                   post.setName(it.getString("name"));
-                   post.getCity().setId(it.getInt("1"));
-                }
-            }
+            preparedStatement.setInt(4, post.getId());
+            preparedStatement.execute();
         } catch (Exception e) {
             LOGGER.catching(e);
         }
