@@ -16,7 +16,7 @@ public class City {
         this.name = name;
     }
 
-    public City(int city_id) {
+    public City(int cityId) {
     }
 
     public int getId() {
