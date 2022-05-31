@@ -52,15 +52,14 @@ public class PostDBStore {
     public Post add(Post post) {
         try (Connection cn = pool.getConnection();
             PreparedStatement preparedStatement =
-                    cn.prepareStatement("insert into post(name, city_id, desc, visible, city, created) values (?, ?, ?, ?, ?, ?)",
+                    cn.prepareStatement("insert into post(name, describe, visible, city_id, created) values (?, ?, ?, ?, ?)",
                     PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
             preparedStatement.setString(1, post.getName());
-            preparedStatement.setInt(2, post.getCity().getId());
-            preparedStatement.setString(3, post.getDesc());
+            preparedStatement.setString(2, post.getDesc());
+            preparedStatement.setInt(3, post.getCity().getId());
             preparedStatement.setBoolean(4, post.isVisible());
-            preparedStatement.setInt(5, post.getCity().getId());
-            preparedStatement.setTimestamp(6, Timestamp.valueOf(post.getCreated()));
+            preparedStatement.setTimestamp(5, Timestamp.valueOf(post.getCreated()));
             preparedStatement.execute();
             try (ResultSet id = preparedStatement.getGeneratedKeys()) {
                 if (id.next()) {
