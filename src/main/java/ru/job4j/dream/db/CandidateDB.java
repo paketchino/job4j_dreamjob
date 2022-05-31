@@ -36,6 +36,7 @@ public class CandidateDB {
                                     it.getInt("id"),
                                     it.getString("name"),
                                     it.getString("desc"),
+                                    it.getBytes("photo"),
                                     it.getBoolean("visible"),
                                     it.getTimestamp("created").toLocalDateTime())
                             );
@@ -51,14 +52,15 @@ public class CandidateDB {
     public Candidate add(Candidate candidate) {
         try (Connection cn = pool.getConnection();
              PreparedStatement preparedStatement =
-                     cn.prepareStatement("insert into candidate(name, desc, visible, created) "
-                                     + "values (?, ?, ?, ?)",
+                     cn.prepareStatement("insert into candidate(name, desc, photo, visible, created) "
+                                     + "values (?, ?, ?, ?, ?)",
                 PreparedStatement.RETURN_GENERATED_KEYS)
             ) {
             preparedStatement.setString(1, candidate.getName());
             preparedStatement.setString(2, candidate.getDesc());
-            preparedStatement.setBoolean(3, candidate.isVisible());
-            preparedStatement.setTimestamp(4, Timestamp.valueOf(candidate.getTimeFormat()));
+            preparedStatement.setBytes(3, candidate.getPhoto());
+            preparedStatement.setBoolean(4, candidate.isVisible());
+            preparedStatement.setTimestamp(5, Timestamp.valueOf(candidate.getTimeFormat()));
             preparedStatement.execute();
             try (ResultSet id = preparedStatement.getGeneratedKeys()) {
                 if (id.next()) {
@@ -84,6 +86,7 @@ public class CandidateDB {
                             it.getInt("id"),
                             it.getString("name"),
                             it.getString("desc"),
+                            it.getBytes("photo"),
                             it.getBoolean("visible"),
                             it.getTimestamp("created").toLocalDateTime()
                     );
@@ -103,7 +106,8 @@ public class CandidateDB {
         ) {
             preparedStatement.setString(1, candidate.getName());
             preparedStatement.setString(2, candidate.getDesc());
-            preparedStatement.setInt(3, candidate.getId());
+            preparedStatement.setBytes(3, candidate.getPhoto());
+            preparedStatement.setInt(4, candidate.getId());
             preparedStatement.execute();
         } catch (Exception e) {
             LOGGER.catching(e);

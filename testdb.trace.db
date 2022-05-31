@@ -1,0 +1,16 @@
+2022-05-31 00:14:53 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+insert into post(name, city_id, desc, visible, city, created) values (?, ?, ?, ?, ?, ?) [42102-200]
+2022-05-31 00:14:53 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+SELECT * from post where id = ? [42102-200]
+2022-05-31 22:54:44 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+insert into post(name, city_id, desc, visible, city, created) values (?, ?, ?, ?, ?, ?) [42102-200]
+2022-05-31 22:54:44 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+SELECT * from post where id = ? [42102-200]

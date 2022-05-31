@@ -27,14 +27,14 @@ public class CandidateService {
 
     public Candidate update(Candidate candidate) {
         candidate.setVisible(true);
-        return candidateStore.updateCandidate(candidate);
+        return candidateDB.update(candidate);
     }
 
     public Candidate findById(int id) {
-        return candidateStore.findById(id);
+        return candidateDB.findById(id);
     }
 
     public Collection<Candidate> findAll()   {
-        return candidateStore.findAll();
+        return candidateDB.findAll();
     }
 }
