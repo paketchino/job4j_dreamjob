@@ -2,7 +2,7 @@ package ru.job4j.dream.service;
 
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
-import ru.job4j.dream.db.PostDBStore;
+import ru.job4j.dream.persistence.db.PostDBStore;
 import ru.job4j.dream.model.Post;
 import java.util.List;
 

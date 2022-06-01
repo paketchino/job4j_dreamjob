@@ -1,4 +1,4 @@
-package ru.job4j.dream.db;
+package ru.job4j.dream.persistence.db;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.logging.log4j.LogManager;
@@ -52,7 +52,7 @@ public class PostDBStore {
     public Post add(Post post) {
         try (Connection cn = pool.getConnection();
             PreparedStatement preparedStatement =
-                    cn.prepareStatement("insert into post(name, describe, visible, city_id, created) values (?, ?, ?, ?, ?)",
+                    cn.prepareStatement("insert into POST(name, describe, visible, city_id, created) values (?, ?, ?, ?, ?)",
                     PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
             preparedStatement.setString(1, post.getName());

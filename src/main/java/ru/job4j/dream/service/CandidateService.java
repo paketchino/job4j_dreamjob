@@ -2,9 +2,9 @@ package ru.job4j.dream.service;
 
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
-import ru.job4j.dream.db.CandidateDB;
+import ru.job4j.dream.persistence.db.CandidateDB;
 import ru.job4j.dream.model.Candidate;
-import ru.job4j.dream.store.CandidateStore;
+import ru.job4j.dream.persistence.store.CandidateStore;
 
 import java.util.Collection;
 

@@ -1,7 +1,7 @@
-create table POST (
+create table IF NOT EXISTS POST (
     id serial PRIMARY KEY,
     name TEXT,
-    describe varchar(255),
+    describe text,
     visible boolean,
     city_id integer,
     created timestamp

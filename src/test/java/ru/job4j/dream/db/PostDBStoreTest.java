@@ -5,6 +5,7 @@ import org.junit.Test;
 import ru.job4j.dream.Main;
 import ru.job4j.dream.model.City;
 import ru.job4j.dream.model.Post;
+import ru.job4j.dream.persistence.db.PostDBStore;
 
 import java.time.LocalDateTime;
 

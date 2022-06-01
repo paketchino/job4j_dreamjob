@@ -1,6 +1,7 @@
-create table candidate {
-    name varchar(30),
-    desc varchar(255),
+create table IF NOT EXISTS candidate {
+    id serial PRIMARY KEY,
+    name text,
+    desc text,
     photo text[],
     visible boolean,
     created timestamp
