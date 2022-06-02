@@ -17,6 +17,7 @@ public class PostDBStoreTest {
     @Ignore
     @Test
     public void whenCreatePost() {
+        City city = new City();
         PostDBStore store = new PostDBStore(new Main().loadPool());
         Post post = new Post(0, "Java Job", "desc", true, new City(1, "Penza"), LocalDateTime.now());
         store.add(post);

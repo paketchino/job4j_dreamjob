@@ -134,3 +134,131 @@ insert into POST(name, describe, visible, city_id, created) values (?, ?, ?, ?, 
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
 Table "POST" not found; SQL statement:
 SELECT * from post where id = ? [42102-200]
+2022-06-02 17:13:23 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+insert into POST(name, describe, visible, city_id, created) values (?, ?, ?, ?, ?) [42102-200]
+2022-06-02 17:13:23 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+SELECT * from post where id = ? [42102-200]
+2022-06-02 17:15:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+insert into POST(name, describe, visible, city_id, created) values (?, ?, ?, ?, ?) [42102-200]
+2022-06-02 17:15:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+SELECT * from post where id = ? [42102-200]
+2022-06-02 17:17:11 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+insert into POST(name, describe, visible, city_id, created) values (?, ?, ?, ?, ?) [42102-200]
+2022-06-02 17:17:11 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+SELECT * from post where id = ? [42102-200]
+2022-06-02 17:17:26 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+insert into POST(name, describe, visible, city_id, created) values (?, ?, ?, ?, ?) [42102-200]
+2022-06-02 17:17:26 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+SELECT * from post where id = ? [42102-200]
+2022-06-02 17:17:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+insert into POST(name, describe, visible, city_id, created) values (?, ?, ?, ?, ?) [42102-200]
+2022-06-02 17:17:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+SELECT * from post where id = ? [42102-200]
+2022-06-02 17:18:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+insert into POST(name, describe, visible, city_id, created) values (?, ?, ?, ?, ?) [42102-200]
+2022-06-02 17:18:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+SELECT * from post where id = ? [42102-200]
+2022-06-02 17:20:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+insert into POST(name, describe, visible, city_id, created) values (?, ?, ?, ?, ?) [42102-200]
+2022-06-02 17:20:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+SELECT * from post where id = ? [42102-200]
+2022-06-02 17:22:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+insert into POST(name, describe, visible, city_id, created) values (?, ?, ?, ?, ?) [42102-200]
+2022-06-02 17:22:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+SELECT * from post where id = ? [42102-200]
+2022-06-02 17:22:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+insert into POST(name, describe, visible, city_id, created) values (?, ?, ?, ?, ?) [42102-200]
+2022-06-02 17:22:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+SELECT * from post where id = ? [42102-200]
+2022-06-02 17:22:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+insert into POST(name, describe, visible, city_id, created) values (?, ?, ?, ?, ?) [42102-200]
+2022-06-02 17:22:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+SELECT * from post where id = ? [42102-200]
+2022-06-02 17:24:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+insert into POST(name, describe, visible, city_id, created) values (?, ?, ?, ?, ?) [42102-200]
+2022-06-02 17:24:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+SELECT * from post where id = ? [42102-200]
+2022-06-02 17:26:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+insert into POST(name, describe, visible, city_id, created) values (?, ?, ?, ?, ?) [42102-200]
+2022-06-02 17:26:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+SELECT * from post where id = ? [42102-200]
+2022-06-02 17:34:11 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+insert into POST(name, describe, visible, city_id, created) values (?, ?, ?, ?, ?) [42102-200]
+2022-06-02 17:34:11 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+SELECT * from post where id = ? [42102-200]
+2022-06-02 17:34:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+insert into POST(name, describe, visible, city_id, created) values (?, ?, ?, ?, ?) [42102-200]
+2022-06-02 17:34:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+SELECT * from post where id = ? [42102-200]
+2022-06-02 17:36:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+insert into POST(name, describe, visible, city_id, created) values (?, ?, ?, ?, ?) [42102-200]
+2022-06-02 17:36:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+SELECT * from post where id = ? [42102-200]
+2022-06-02 17:37:08 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+insert into POST(name, describe, visible, city_id, created) values (?, ?, ?, ?, ?) [42102-200]
+2022-06-02 17:37:08 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "POST" не найдена
+Table "POST" not found; SQL statement:
+SELECT * from post where id = ? [42102-200]
