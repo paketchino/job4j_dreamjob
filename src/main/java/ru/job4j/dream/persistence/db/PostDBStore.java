@@ -36,7 +36,7 @@ public class PostDBStore {
                             new Post(
                                     it.getInt("id"),
                                     it.getString("name"),
-                                    it.getString("desc"),
+                                    it.getString("describe"),
                                     it.getBoolean("visible"),
                                     new City(it.getInt("city_id")),
                                     it.getTimestamp("created").toLocalDateTime())
@@ -57,13 +57,13 @@ public class PostDBStore {
         ) {
             preparedStatement.setString(1, post.getName());
             preparedStatement.setString(2, post.getDesc());
-            preparedStatement.setInt(3, post.getCity().getId());
-            preparedStatement.setBoolean(4, post.isVisible());
+            preparedStatement.setBoolean(3, post.isVisible());
+            preparedStatement.setInt(4, post.getCity().getId());
             preparedStatement.setTimestamp(5, Timestamp.valueOf(post.getCreated()));
             preparedStatement.execute();
             try (ResultSet id = preparedStatement.getGeneratedKeys()) {
                 if (id.next()) {
-                    post.setId(id.getInt("1"));
+                    post.setId(id.getInt(post.getId()));
                 }
             }
         } catch (Exception e) {
@@ -80,9 +80,10 @@ public class PostDBStore {
             preparedStatement.setInt(1, id);
             try (ResultSet it = preparedStatement.executeQuery()) {
                 if (it.next()) {
-                    post = new Post(it.getInt("id"),
+                    post = new Post(
+                            it.getInt("id"),
                             it.getString("name"),
-                            it.getString("desc"),
+                            it.getString("describe"),
                             it.getBoolean("visible"),
                             new City(it.getInt("city_id")),
                             it.getTimestamp("created").toLocalDateTime()
@@ -97,7 +98,7 @@ public class PostDBStore {
 
     public Post update(Post post) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement preparedStatement = cn.prepareStatement("update post set name = ?, desc = ?, city_id = ? where id = ?")
+             PreparedStatement preparedStatement = cn.prepareStatement("update post set name = ?, describe = ?, city_id = ? where id = ?")
         ) {
             preparedStatement.setString(1, post.getName());
             preparedStatement.setString(3, post.getDesc());

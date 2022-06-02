@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog>
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsihttp://www.w3.org/2001/XMLSchema-instancelor:#efefef;font-weight:bold;">="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:http://www.liquibase.org/xml/ns/dbchangelog-extt-weight:bold;">ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsdngelog-extolor:#0000ff;background-color:#efefef;font-weight:bold;">:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+<include file="scripts/update_001.sql" relativeToChangelogFile="true"/>
+<include file="scripts/update_002.sql" relativeToChangelogFile="true"/>
+</databaseChangeLog>
+

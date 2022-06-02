@@ -35,7 +35,7 @@ public class CandidateDB {
                             new Candidate(
                                     it.getInt("id"),
                                     it.getString("name"),
-                                    it.getString("desc"),
+                                    it.getString("describe"),
                                     it.getBytes("photo"),
                                     it.getBoolean("visible"),
                                     it.getTimestamp("created").toLocalDateTime())
@@ -52,7 +52,7 @@ public class CandidateDB {
     public Candidate add(Candidate candidate) {
         try (Connection cn = pool.getConnection();
              PreparedStatement preparedStatement =
-                     cn.prepareStatement("insert into candidate(name, desc, photo, visible, created) "
+                     cn.prepareStatement("insert into candidate(name, describe, photo, visible, created) "
                                      + "values (?, ?, ?, ?, ?)",
                 PreparedStatement.RETURN_GENERATED_KEYS)
             ) {
@@ -64,7 +64,7 @@ public class CandidateDB {
             preparedStatement.execute();
             try (ResultSet id = preparedStatement.getGeneratedKeys()) {
                 if (id.next()) {
-                    candidate.setId(id.getInt("1"));
+                    candidate.setId(id.getInt(1));
                 }
             }
         } catch (Exception e) {
@@ -85,7 +85,7 @@ public class CandidateDB {
                     candidate = new Candidate(
                             it.getInt("id"),
                             it.getString("name"),
-                            it.getString("desc"),
+                            it.getString("describe"),
                             it.getBytes("photo"),
                             it.getBoolean("visible"),
                             it.getTimestamp("created").toLocalDateTime()
@@ -102,7 +102,7 @@ public class CandidateDB {
     public Candidate update(Candidate candidate) {
         try (Connection cn = pool.getConnection();
              PreparedStatement preparedStatement =
-                     cn.prepareStatement("update candidate set name = ?, desc = ? where id = ?")
+                     cn.prepareStatement("update candidate set name = ?, describe = ? where id = ?")
         ) {
             preparedStatement.setString(1, candidate.getName());
             preparedStatement.setString(2, candidate.getDesc());
