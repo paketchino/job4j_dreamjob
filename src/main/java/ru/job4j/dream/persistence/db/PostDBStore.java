@@ -63,24 +63,24 @@ public class PostDBStore {
             preparedStatement.execute();
             try (ResultSet id = preparedStatement.getGeneratedKeys()) {
                 if (id.next()) {
-                    post.setId(id.getInt(post.getId()));
+                    post.setId(id.getInt(1));
                 }
             }
         } catch (Exception e) {
-            LOGGER.catching(e);
+            LOGGER.error(e.getMessage(), e);
         }
         return post;
     }
 
     public Post findById(int id) {
-        Post post = null;
         try (Connection cn = pool.getConnection();
-             PreparedStatement preparedStatement = cn.prepareStatement("SELECT * from post where id = ?")
+             PreparedStatement preparedStatement =
+                     cn.prepareStatement("SELECT * from POST where id = ?")
         ) {
             preparedStatement.setInt(1, id);
             try (ResultSet it = preparedStatement.executeQuery()) {
                 if (it.next()) {
-                    post = new Post(
+                    return new Post(
                             it.getInt("id"),
                             it.getString("name"),
                             it.getString("describe"),
@@ -93,12 +93,12 @@ public class PostDBStore {
         } catch (Exception e) {
             LOGGER.catching(e);
         }
-        return post;
+        return null;
     }
 
     public Post update(Post post) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement preparedStatement = cn.prepareStatement("update post set name = ?, describe = ?, city_id = ? where id = ?")
+             PreparedStatement preparedStatement = cn.prepareStatement("update POST set name = ?, describe = ?, city_id = ? where id = ?")
         ) {
             preparedStatement.setString(1, post.getName());
             preparedStatement.setString(3, post.getDesc());
