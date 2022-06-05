@@ -1,8 +1,8 @@
-create table IF NOT EXISTS candidate {
+CREATE TABLE IF NOT EXISTS CANDIDATE (
     id serial PRIMARY KEY,
-    name text,
-    describe text,
-    photo text[],
-    visible boolean,
-    created timestamp
-};
+    name TEXT,
+    describe TEXT,
+    photo bytea,
+    visible boolean default false,
+    created timestamp default current_timestamp
+);

@@ -52,8 +52,7 @@ public class CandidateDB {
     public Candidate add(Candidate candidate) {
         try (Connection cn = pool.getConnection();
              PreparedStatement preparedStatement =
-                     cn.prepareStatement("insert into candidate(name, describe, photo, visible, created) "
-                                     + "values (?, ?, ?, ?, ?)",
+                     cn.prepareStatement("insert into CANDIDATE(name, describe, photo, visible, created) values (?, ?, ?, ?, ?)",
                 PreparedStatement.RETURN_GENERATED_KEYS)
             ) {
             preparedStatement.setString(1, candidate.getName());
@@ -68,7 +67,7 @@ public class CandidateDB {
                 }
             }
         } catch (Exception e) {
-            LOGGER.catching(e);
+            LOGGER.error(e.getMessage(), e);
         }
         return candidate;
     }
