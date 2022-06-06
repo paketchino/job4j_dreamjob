@@ -101,8 +101,8 @@ public class PostDBStore {
              PreparedStatement preparedStatement = cn.prepareStatement("update POST set name = ?, describe = ?, city_id = ? where id = ?")
         ) {
             preparedStatement.setString(1, post.getName());
-            preparedStatement.setString(3, post.getDesc());
-            preparedStatement.setInt(2, post.getCity().getId());
+            preparedStatement.setString(2, post.getDesc());
+            preparedStatement.setInt(3, post.getCity().getId());
             preparedStatement.setInt(4, post.getId());
             preparedStatement.execute();
         } catch (Exception e) {

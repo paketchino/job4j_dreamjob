@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 
 public class CandidateDBTest {
 
-
     @Test
     public void whenCreateCandidate() {
         CandidateDB candidateDB = new CandidateDB(new Main().loadPool());
@@ -18,5 +17,26 @@ public class CandidateDBTest {
         Candidate candidateId = candidateDB.findById(candidate.getId());
         assertThat(candidateId.getName(), is(candidate.getName()));
 
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void whenTryToFindCandidateWithoutId() {
+        CandidateDB candidateDB = new CandidateDB(new Main().loadPool());
+        Candidate candidate = new Candidate(13, "Roman", "Course", new byte[1024], true, LocalDateTime.now());
+        Candidate candidateId = candidateDB.findById(candidate.getId());
+        candidateId.getName();
+    }
+
+    @Test
+    public void whenUpdateCandidate() {
+        CandidateDB candidateDB = new CandidateDB(new Main().loadPool());
+        Candidate candidate =
+                new Candidate(1, "name", "desc", new byte[1024], true, LocalDateTime.now());
+        candidateDB.add(candidate);
+        Candidate candidateUpdate =
+                new Candidate(candidate.getId(), "Sergey", "Java Senior", new byte[1024], true, LocalDateTime.now());
+        candidateDB.update(candidateUpdate);
+        Candidate candidateInDB = candidateDB.findById(candidate.getId());
+        assertThat(candidateInDB.getName(), is(candidateUpdate.getName()));
     }
 }

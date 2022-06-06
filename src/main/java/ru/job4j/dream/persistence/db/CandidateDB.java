@@ -105,9 +105,8 @@ public class CandidateDB {
         ) {
             preparedStatement.setString(1, candidate.getName());
             preparedStatement.setString(2, candidate.getDesc());
-            preparedStatement.setBytes(3, candidate.getPhoto());
-            preparedStatement.setInt(4, candidate.getId());
-            preparedStatement.execute();
+            preparedStatement.setInt(3, candidate.getId());
+            preparedStatement.executeUpdate();
         } catch (Exception e) {
             LOGGER.catching(e);
         }
