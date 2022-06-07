@@ -52,8 +52,8 @@ public class PostDBStore {
     public Post add(Post post) {
         try (Connection cn = pool.getConnection();
             PreparedStatement preparedStatement =
-                    cn.prepareStatement("insert into POST(name, describe, visible, city_id, created) " +
-                                    "values (?, ?, ?, ?, ?)",
+                    cn.prepareStatement("insert into POST(name, describe, visible, city_id, created) "
+                                    + "values (?, ?, ?, ?, ?)",
                     PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
             preparedStatement.setString(1, post.getName());
