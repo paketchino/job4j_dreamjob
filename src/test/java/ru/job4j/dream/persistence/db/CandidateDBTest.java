@@ -4,7 +4,8 @@ import org.junit.Test;
 import ru.job4j.dream.Main;
 import ru.job4j.dream.model.Candidate;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
+
 import java.time.LocalDateTime;
 
 public class CandidateDBTest {
@@ -19,12 +20,12 @@ public class CandidateDBTest {
 
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void whenTryToFindCandidateWithoutId() {
         CandidateDB candidateDB = new CandidateDB(new Main().loadPool());
-        Candidate candidate = new Candidate(13, "Roman", "Course", new byte[1024], true, LocalDateTime.now());
+        Candidate candidate = new Candidate(16, "Roman", "Course", new byte[1024], true, LocalDateTime.now());
         Candidate candidateId = candidateDB.findById(candidate.getId());
-        candidateId.getName();
+        assertNull(candidateId.getName());
     }
 
     @Test

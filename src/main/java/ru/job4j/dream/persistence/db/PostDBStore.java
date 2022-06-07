@@ -52,7 +52,8 @@ public class PostDBStore {
     public Post add(Post post) {
         try (Connection cn = pool.getConnection();
             PreparedStatement preparedStatement =
-                    cn.prepareStatement("insert into POST(name, describe, visible, city_id, created) values (?, ?, ?, ?, ?)",
+                    cn.prepareStatement("insert into POST(name, describe, visible, city_id, created) " +
+                                    "values (?, ?, ?, ?, ?)",
                     PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
             preparedStatement.setString(1, post.getName());
@@ -73,6 +74,7 @@ public class PostDBStore {
     }
 
     public Post findById(int id) {
+        Post post = null;
         try (Connection cn = pool.getConnection();
              PreparedStatement preparedStatement =
                      cn.prepareStatement("SELECT * from POST where id = ?")
@@ -80,7 +82,7 @@ public class PostDBStore {
             preparedStatement.setInt(1, id);
             try (ResultSet it = preparedStatement.executeQuery()) {
                 if (it.next()) {
-                    return new Post(
+                    post = new Post(
                             it.getInt("id"),
                             it.getString("name"),
                             it.getString("describe"),
@@ -93,7 +95,7 @@ public class PostDBStore {
         } catch (Exception e) {
             LOGGER.catching(e);
         }
-        return null;
+        return post;
     }
 
     public Post update(Post post) {

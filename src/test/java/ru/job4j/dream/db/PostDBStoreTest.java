@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertNull;
+
 
 public class PostDBStoreTest {
 
@@ -23,12 +25,12 @@ public class PostDBStoreTest {
         assertThat(postInDb.getName(), is(post.getName()));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void whenFindByIdWithoutPost() {
         PostDBStore store = new PostDBStore(new Main().loadPool());
         Post post = new Post(15, "Middle", "Describe", true, new City(2, "Moscow"), LocalDateTime.now());
         Post postInDb = store.findById(post.getId());
-        postInDb.getName();
+        assertNull(postInDb.getName());
     }
 
     @Test
