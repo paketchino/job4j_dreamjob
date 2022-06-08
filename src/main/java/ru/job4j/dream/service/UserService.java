@@ -34,6 +34,18 @@ public class UserService {
         return Optional.of(userDBStore.add(user));
     }
 
+    public Optional<User> findUserByEmailAndPwd(String email, String password) {
+        User findUser = null;
+        List<User> users = userDBStore.findAll();
+        for (User user : users) {
+            if (user.getEmail().equals(email)
+                    && user.getPassword().equals(password)) {
+                findUser = user;
+            }
+        }
+        return Optional.of(findUser);
+    }
+
     public User findById(int id) {
         return userDBStore.findById(id);
     }
