@@ -30,7 +30,7 @@ public class PostDBStoreTest {
         PostDBStore store = new PostDBStore(new Main().loadPool());
         Post post = new Post(15, "Middle", "Describe", true, new City(2, "Moscow"), LocalDateTime.now());
         Post postInDb = store.findById(post.getId());
-        assertNull(postInDb.getName());
+        assertNull(postInDb);
     }
 
     @Test

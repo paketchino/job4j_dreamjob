@@ -25,7 +25,7 @@ public class CandidateDBTest {
         CandidateDB candidateDB = new CandidateDB(new Main().loadPool());
         Candidate candidate = new Candidate(16, "Roman", "Course", new byte[1024], true, LocalDateTime.now());
         Candidate candidateId = candidateDB.findById(candidate.getId());
-        assertNull(candidateId.getName());
+        assertNull(candidateId);
     }
 
     @Test

@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class PostDBStore {
@@ -49,7 +50,7 @@ public class PostDBStore {
         return posts;
     }
 
-    public Post add(Post post) {
+    public Optional<Post> add(Post post) {
         try (Connection cn = pool.getConnection();
             PreparedStatement preparedStatement =
                     cn.prepareStatement("insert into POST(name, describe, visible, city_id, created) "
@@ -70,7 +71,7 @@ public class PostDBStore {
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
-        return post;
+        return Optional.of(post);
     }
 
     public Post findById(int id) {

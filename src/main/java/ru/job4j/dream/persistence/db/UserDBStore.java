@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserDBStore {
@@ -47,7 +48,7 @@ public class UserDBStore {
         return users;
     }
 
-    public User add(User user) {
+    public Optional<User> add(User user) {
         try (Connection cn = pool.getConnection();
              PreparedStatement preparedStatement = cn.prepareStatement("insert into user (email, password, city_id) values (?, ?, ?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)
@@ -64,7 +65,7 @@ public class UserDBStore {
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
-        return user;
+        return Optional.of(user);
     }
 
 
