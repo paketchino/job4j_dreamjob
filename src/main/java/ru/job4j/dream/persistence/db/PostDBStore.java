@@ -50,6 +50,7 @@ public class PostDBStore {
         return posts;
     }
 
+
     public Optional<Post> add(Post post) {
         try (Connection cn = pool.getConnection();
             PreparedStatement preparedStatement =
