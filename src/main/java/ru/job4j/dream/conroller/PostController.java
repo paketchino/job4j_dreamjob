@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.dream.model.City;
 import ru.job4j.dream.model.Post;
+import ru.job4j.dream.model.User;
 import ru.job4j.dream.service.CityService;
 import ru.job4j.dream.service.PostService;
+
+import javax.servlet.http.HttpSession;
 
 @ThreadSafe
 @Controller
@@ -58,5 +61,7 @@ public class PostController {
         postService.update(post);
         return "redirect:/posts";
     }
+
+
 
 }

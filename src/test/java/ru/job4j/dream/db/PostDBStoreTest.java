@@ -8,6 +8,7 @@ import ru.job4j.dream.model.Post;
 import ru.job4j.dream.persistence.db.PostDBStore;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -21,16 +22,16 @@ public class PostDBStoreTest {
         PostDBStore store = new PostDBStore(new Main().loadPool());
         Post post = new Post(1, "Java Job", "desc", true, new City(1, "Penza"), LocalDateTime.now());
         store.add(post);
-        Post postInDb = store.findById(post.getId());
-        assertThat(postInDb.getName(), is(post.getName()));
+        Optional<Post> postInDb = store.findById(post.getId());
+        assertThat(postInDb.get().getName(), is(post.getName()));
     }
 
     @Test
-    public void whenFindByIdWithoutPost() {
+    public void whenFindByIdWithoutPostThenOptionalEmpty() {
         PostDBStore store = new PostDBStore(new Main().loadPool());
         Post post = new Post(15, "Middle", "Describe", true, new City(2, "Moscow"), LocalDateTime.now());
-        Post postInDb = store.findById(post.getId());
-        assertNull(postInDb);
+        Optional<Post> postInDb = store.findById(post.getId());
+        assertThat(postInDb, is(Optional.empty()));
     }
 
     @Test
@@ -40,8 +41,8 @@ public class PostDBStoreTest {
         store.add(post);
         Post postUpdate = new Post(post.getId(), "MTS", "desc", true, post.getCity(), post.getCreated());
         store.update(postUpdate);
-        Post postInDb = store.findById(post.getId());
-        assertThat(postInDb.getName(), is(postUpdate.getName()));
+        Optional<Post> postInDb = store.findById(post.getId());
+        assertThat(postInDb.get().getName(), is(postUpdate.getName()));
     }
 
 }

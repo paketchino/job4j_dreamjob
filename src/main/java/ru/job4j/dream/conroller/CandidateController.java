@@ -11,8 +11,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.job4j.dream.model.Candidate;
+import ru.job4j.dream.model.User;
 import ru.job4j.dream.service.CandidateService;
+
+import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @ThreadSafe
 @Controller
@@ -60,12 +64,12 @@ public class CandidateController {
 
     @GetMapping("/photoCandidate/{candidateId}")
     public ResponseEntity<Resource> download(@PathVariable("candidateId") Integer candidateId)  {
-        Candidate candidate = candidateService.findById(candidateId);
+        Optional<Candidate> candidate = candidateService.findById(candidateId);
         return ResponseEntity.ok()
                 .headers(new HttpHeaders())
-                .contentLength(candidate.getPhoto().length)
+                .contentLength(candidate.get().getPhoto().length)
                 .contentType(MediaType.parseMediaType("application/octet-stream"))
-                .body(new ByteArrayResource(candidate.getPhoto()));
+                .body(new ByteArrayResource(candidate.get().getPhoto()));
     }
 
 }
