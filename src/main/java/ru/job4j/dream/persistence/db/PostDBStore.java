@@ -52,6 +52,7 @@ public class PostDBStore {
 
 
     public Optional<Post> add(Post post) {
+        Optional<Post> rsl = Optional.empty();
         try (Connection cn = pool.getConnection();
             PreparedStatement preparedStatement =
                     cn.prepareStatement("insert into POST(name, describe, visible, city_id, created) "
@@ -69,14 +70,15 @@ public class PostDBStore {
                     post.setId(id.getInt(1));
                 }
             }
+            rsl = Optional.of(post);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
-        return Optional.of(post);
+        return rsl;
     }
 
-    public Post findById(int id) {
-        Post post = null;
+    public Optional<Post> findById(int id) {
+        Optional<Post> rsl = Optional.empty();
         try (Connection cn = pool.getConnection();
              PreparedStatement preparedStatement =
                      cn.prepareStatement("SELECT * from POST where id = ?")
@@ -84,23 +86,24 @@ public class PostDBStore {
             preparedStatement.setInt(1, id);
             try (ResultSet it = preparedStatement.executeQuery()) {
                 if (it.next()) {
-                    post = new Post(
+                    rsl = Optional.of(new Post(
                             it.getInt("id"),
                             it.getString("name"),
                             it.getString("describe"),
                             it.getBoolean("visible"),
                             new City(it.getInt("city_id")),
                             it.getTimestamp("created").toLocalDateTime()
-                    );
+                    ));
                 }
             }
         } catch (Exception e) {
             LOGGER.catching(e);
         }
-        return post;
+        return rsl;
     }
 
-    public Post update(Post post) {
+    public Optional<Post> update(Post post) {
+        Optional<Post> rsl = Optional.empty();
         try (Connection cn = pool.getConnection();
              PreparedStatement preparedStatement = cn.prepareStatement("update POST set name = ?, describe = ?, city_id = ? where id = ?")
         ) {
@@ -109,9 +112,10 @@ public class PostDBStore {
             preparedStatement.setInt(3, post.getCity().getId());
             preparedStatement.setInt(4, post.getId());
             preparedStatement.execute();
+            rsl = Optional.of(post);
         } catch (Exception e) {
             LOGGER.catching(e);
         }
-        return post;
+        return rsl;
     }
 }

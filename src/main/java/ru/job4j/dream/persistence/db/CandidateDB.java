@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class CandidateDB {
@@ -49,7 +50,8 @@ public class CandidateDB {
     }
 
 
-    public Candidate add(Candidate candidate) {
+    public Optional<Candidate> add(Candidate candidate) {
+        Optional<Candidate> rsl = Optional.empty();
         try (Connection cn = pool.getConnection();
              PreparedStatement preparedStatement =
                      cn.prepareStatement("insert into CANDIDATE(name, describe, photo, visible, created) values (?, ?, ?, ?, ?)",
@@ -66,14 +68,15 @@ public class CandidateDB {
                     candidate.setId(id.getInt(1));
                 }
             }
+            rsl = Optional.of(candidate);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
-        return candidate;
+        return rsl;
     }
 
-    public Candidate findById(int id) {
-        Candidate candidate = null;
+    public Optional<Candidate> findById(int id) {
+        Optional<Candidate> rsl = Optional.empty();
         try (Connection cn = pool.getConnection();
              PreparedStatement preparedStatement =
                      cn.prepareStatement("select * from candidate where id = ? ")
@@ -81,24 +84,25 @@ public class CandidateDB {
             preparedStatement.setInt(1, id);
             try (ResultSet it = preparedStatement.executeQuery()) {
                 if (it.next()) {
-                    candidate = new Candidate(
+                    rsl = Optional.of(new Candidate(
                             it.getInt("id"),
                             it.getString("name"),
                             it.getString("describe"),
                             it.getBytes("photo"),
                             it.getBoolean("visible"),
                             it.getTimestamp("created").toLocalDateTime()
-                    );
+                    ));
                 }
             }
         } catch (Exception e) {
             LOGGER.catching(e);
         }
-        return candidate;
+        return rsl;
     }
 
 
-    public Candidate update(Candidate candidate) {
+    public Optional<Candidate> update(Candidate candidate) {
+        Optional<Candidate> rsl = Optional.empty();
         try (Connection cn = pool.getConnection();
              PreparedStatement preparedStatement =
                      cn.prepareStatement("update candidate set name = ?, describe = ? where id = ?")
@@ -107,9 +111,10 @@ public class CandidateDB {
             preparedStatement.setString(2, candidate.getDesc());
             preparedStatement.setInt(3, candidate.getId());
             preparedStatement.executeUpdate();
+            rsl = Optional.of(candidate);
         } catch (Exception e) {
             LOGGER.catching(e);
         }
-        return candidate;
+        return rsl;
     }
 }

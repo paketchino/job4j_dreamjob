@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.job4j.dream.persistence.db.PostDBStore;
 import ru.job4j.dream.model.Post;
 import java.util.List;
+import java.util.Optional;
 
 @ThreadSafe
 @Service
@@ -32,11 +33,11 @@ public class PostService {
         postStore.add(post);
     }
 
-    public Post findById(int id) {
+    public Optional<Post> findById(int id) {
         return postStore.findById(id);
     }
 
-    public Post update(Post post) {
+    public Optional<Post> update(Post post) {
         return postStore.update(post);
     }
 

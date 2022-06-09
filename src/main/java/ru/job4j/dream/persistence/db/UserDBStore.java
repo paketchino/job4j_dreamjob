@@ -49,6 +49,7 @@ public class UserDBStore {
     }
 
     public Optional<User> add(User user) {
+        Optional<User> rsl = Optional.empty();
         try (Connection cn = pool.getConnection();
              PreparedStatement preparedStatement = cn.prepareStatement("insert into user (email, password, city_id) values (?, ?, ?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)
@@ -62,16 +63,17 @@ public class UserDBStore {
                     user.setId(id.getInt("1"));
                 }
             }
+            rsl = Optional.of(user);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
-        return Optional.of(user);
+        return rsl;
     }
 
 
 
-    public User findById(int id) {
-        User user = null;
+    public Optional<User> findById(int id) {
+        Optional<User> rsl = Optional.empty();
         try (Connection cn = pool.getConnection();
              PreparedStatement preparedStatement =
                      cn.prepareStatement("SELECT * FROM USER WHERE ID = ?")
@@ -79,22 +81,23 @@ public class UserDBStore {
             preparedStatement.setInt(1, id);
             try (ResultSet it = preparedStatement.executeQuery()) {
                 if (it.next()) {
-                    user = new User(
+                    rsl = Optional.of(new User(
                             it.getInt("id"),
                             it.getString("email"),
                             it.getString("password"),
                             new City(it.getInt("city_id"))
-                    );
+                    ));
                 }
             }
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
-        return user;
+        return rsl;
     }
 
 
-    public User update(User user) {
+    public Optional<User> update(User user) {
+        Optional<User> rsl = Optional.empty();
         try (Connection cn = pool.getConnection();
              PreparedStatement preparedStatement =
                      cn.prepareStatement("UPDATE USER SET EMAIL = ?, PASSWORD = ?, CITY_ID = ? WHERE ID = ?")) {
@@ -103,9 +106,10 @@ public class UserDBStore {
             preparedStatement.setInt(3, user.getCity().getId());
             preparedStatement.setInt(4, user.getId());
             preparedStatement.execute();
+            rsl = Optional.of(user);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
-        return user;
+        return rsl;
     }
 }

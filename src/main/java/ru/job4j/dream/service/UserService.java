@@ -35,22 +35,22 @@ public class UserService {
     }
 
     public Optional<User> findUserByEmailAndPwd(String email, String password) {
-        User findUser = null;
+        Optional<User> findUser = Optional.empty();
         List<User> users = userDBStore.findAll();
         for (User user : users) {
             if (user.getEmail().equals(email)
                     && user.getPassword().equals(password)) {
-                findUser = user;
+                findUser = Optional.of(user);
             }
         }
-        return Optional.of(findUser);
+        return findUser;
     }
 
-    public User findById(int id) {
+    public Optional<User> findById(int id) {
         return userDBStore.findById(id);
     }
 
-    public User update(User user) {
+    public Optional<User> update(User user) {
         return userDBStore.update(user);
     }
 }

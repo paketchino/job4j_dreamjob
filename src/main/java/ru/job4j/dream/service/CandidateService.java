@@ -7,6 +7,7 @@ import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.persistence.store.CandidateStore;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @ThreadSafe
 @Service
@@ -25,12 +26,12 @@ public class CandidateService {
         candidateStore.add(candidate);
     }
 
-    public Candidate update(Candidate candidate) {
+    public Optional<Candidate> update(Candidate candidate) {
         candidate.setVisible(true);
         return candidateDB.update(candidate);
     }
 
-    public Candidate findById(int id) {
+    public Optional<Candidate> findById(int id) {
         return candidateDB.findById(id);
     }
 
