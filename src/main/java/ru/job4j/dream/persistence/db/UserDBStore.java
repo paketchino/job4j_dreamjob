@@ -29,12 +29,13 @@ public class UserDBStore {
     public List<User> findAll() {
         List<User> users = new ArrayList<>();
         try (Connection cn = pool.getConnection();
-             PreparedStatement preparedStatement = cn.prepareStatement("select * from user")) {
+             PreparedStatement preparedStatement = cn.prepareStatement("select * from users")) {
             try (ResultSet it = preparedStatement.executeQuery()) {
                 while (it.next()) {
                     users.add(
                             new User(
                                     it.getInt("id"),
+                                    it.getString("name_users"),
                                     it.getString("email"),
                                     it.getString("password"),
                                     new City(it.getInt("city_id"))
@@ -51,16 +52,18 @@ public class UserDBStore {
     public Optional<User> add(User user) {
         Optional<User> rsl = Optional.empty();
         try (Connection cn = pool.getConnection();
-             PreparedStatement preparedStatement = cn.prepareStatement("insert into user (email, password, city_id) values (?, ?, ?)",
+             PreparedStatement preparedStatement =
+                     cn.prepareStatement("insert into users(name_users, email, password, city_id) values (?, ?, ?, ?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
-            preparedStatement.setString(1, user.getEmail());
-            preparedStatement.setString(2, user.getPassword());
-            preparedStatement.setInt(3, user.getCity().getId());
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getEmail());
+            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setInt(4, user.getCity().getId());
             preparedStatement.execute();
             try (ResultSet id = preparedStatement.getGeneratedKeys()) {
                 if (id.next()) {
-                    user.setId(id.getInt("1"));
+                    user.setId(id.getInt(1));
                 }
             }
             rsl = Optional.of(user);
@@ -71,18 +74,18 @@ public class UserDBStore {
     }
 
 
-
     public Optional<User> findById(int id) {
         Optional<User> rsl = Optional.empty();
         try (Connection cn = pool.getConnection();
              PreparedStatement preparedStatement =
-                     cn.prepareStatement("SELECT * FROM USER WHERE ID = ?")
+                     cn.prepareStatement("SELECT * FROM users WHERE id = ?")
         ) {
             preparedStatement.setInt(1, id);
             try (ResultSet it = preparedStatement.executeQuery()) {
                 if (it.next()) {
                     rsl = Optional.of(new User(
                             it.getInt("id"),
+                            it.getString("name_users"),
                             it.getString("email"),
                             it.getString("password"),
                             new City(it.getInt("city_id"))
@@ -100,11 +103,12 @@ public class UserDBStore {
         Optional<User> rsl = Optional.empty();
         try (Connection cn = pool.getConnection();
              PreparedStatement preparedStatement =
-                     cn.prepareStatement("UPDATE USER SET EMAIL = ?, PASSWORD = ?, CITY_ID = ? WHERE ID = ?")) {
-            preparedStatement.setString(1, user.getEmail());
-            preparedStatement.setString(2, user.getPassword());
-            preparedStatement.setInt(3, user.getCity().getId());
-            preparedStatement.setInt(4, user.getId());
+                     cn.prepareStatement("UPDATE users SET name_users, set EMAIL = ?, PASSWORD = ?, CITY_ID = ? WHERE ID = ?")) {
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getEmail());
+            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setInt(4, user.getCity().getId());
+            preparedStatement.setInt(5, user.getId());
             preparedStatement.execute();
             rsl = Optional.of(user);
         } catch (Exception e) {

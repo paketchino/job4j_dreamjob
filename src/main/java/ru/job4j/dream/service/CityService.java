@@ -4,8 +4,6 @@ import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.dream.model.City;
 import ru.job4j.dream.persistence.store.CityStore;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @ThreadSafe
