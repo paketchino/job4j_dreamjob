@@ -28,19 +28,25 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    public String posts(Model model) {
+    public String posts(Model model, HttpSession session, User user) {
+        SetUser setUser = new SetUser();
+        setUser.findUser(user, session);
         model.addAttribute("posts", postService.findAll());
         return "posts";
     }
 
     @GetMapping("/addPost")
-    public String addPost(Model model) {
+    public String addPost(Model model, HttpSession session, User user) {
+        SetUser setUser = new SetUser();
+        setUser.findUser(user, session);
         model.addAttribute("cities", cityService.getAllCities());
         return "addPost";
     }
 
     @PostMapping("/createPost")
-    public String createPost(@ModelAttribute Post post) {
+    public String createPost(@ModelAttribute Post post, HttpSession session, User user) {
+        SetUser setUser = new SetUser();
+        setUser.findUser(user, session);
         City city = cityService.findById(post.getCity().getId());
         post.setCity(city);
         postService.add(post);
@@ -48,20 +54,22 @@ public class PostController {
     }
 
     @GetMapping("/updatePost/{postId}")
-    public String updatePost(Model model, @PathVariable("postId") int id) {
+    public String updatePost(Model model, @PathVariable("postId") int id, HttpSession session, User user) {
+        SetUser setUser = new SetUser();
+        setUser.findUser(user, session);
         model.addAttribute("post", postService.findById(id));
         model.addAttribute("cities", cityService.getAllCities());
         return "updatePost";
     }
 
     @PostMapping("/updatePost")
-    public String updatePost(@ModelAttribute Post post) {
+    public String updatePost(@ModelAttribute Post post, HttpSession session, User user) {
+        SetUser setUser = new SetUser();
+        setUser.findUser(user, session);
         City city = cityService.findById(post.getCity().getId());
         post.setCity(city);
         postService.update(post);
         return "redirect:/posts";
     }
-
-
 
 }

@@ -12,15 +12,10 @@ import javax.servlet.http.HttpSession;
 public class IndexControl {
 
     @GetMapping("/index")
-    public String index(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
+    public String index(Model model, HttpSession session, User user) {
+        SetUser setUser = new SetUser();
+        setUser.findUser(user, session);
         model.addAttribute("user", user);
         return "index";
     }
-
-
 }

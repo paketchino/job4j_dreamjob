@@ -18,9 +18,9 @@ public class PostStore {
     private AtomicInteger postId = new AtomicInteger(4);
 
     private PostStore() {
-        posts.put(1, new Post(1, "Junior Java Job", "500к/сек", true, new City(), LocalDateTime.now()));
-        posts.put(2, new Post(2, "Middle Java Job", "800к/сек", true, new City(), LocalDateTime.now()));
-        posts.put(3, new Post(3, "Senior Java Job", "Бесценен", true, new City(), LocalDateTime.now()));
+        posts.put(1, new Post(1, "Junior Java Job", "500к/сек", new City(), LocalDateTime.now(), true));
+        posts.put(2, new Post(2, "Middle Java Job", "800к/сек", new City(), LocalDateTime.now(), true));
+        posts.put(3, new Post(3, "Senior Java Job", "Бесценен", new City(), LocalDateTime.now(), true));
     }
 
 

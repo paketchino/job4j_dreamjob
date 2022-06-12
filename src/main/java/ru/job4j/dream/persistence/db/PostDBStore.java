@@ -30,7 +30,8 @@ public class PostDBStore {
     public List<Post> findAll() {
         List<Post> posts = new ArrayList<>();
         try (Connection cn = pool.getConnection();
-            PreparedStatement preparedStatement = cn.prepareStatement("SELECT * from post")) {
+            PreparedStatement preparedStatement =
+                    cn.prepareStatement("SELECT * from post")) {
             try (ResultSet it = preparedStatement.executeQuery()) {
                 while (it.next()) {
                     posts.add(
@@ -38,9 +39,9 @@ public class PostDBStore {
                                     it.getInt("id"),
                                     it.getString("name"),
                                     it.getString("describe"),
-                                    it.getBoolean("visible"),
-                                    new City(it.getInt("city_id")),
-                                    it.getTimestamp("created").toLocalDateTime())
+                                    new City(it.getInt("city_id"), null),
+                                    it.getTimestamp("created").toLocalDateTime(),
+                                    it.getBoolean("visible"))
                     );
                 }
             }
@@ -55,15 +56,15 @@ public class PostDBStore {
         Optional<Post> rsl = Optional.empty();
         try (Connection cn = pool.getConnection();
             PreparedStatement preparedStatement =
-                    cn.prepareStatement("insert into POST(name, describe, visible, city_id, created) "
+                    cn.prepareStatement("insert into POST(name, describe, city_id, created, visible) "
                                     + "values (?, ?, ?, ?, ?)",
                     PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
             preparedStatement.setString(1, post.getName());
             preparedStatement.setString(2, post.getDesc());
-            preparedStatement.setBoolean(3, post.isVisible());
-            preparedStatement.setInt(4, post.getCity().getId());
-            preparedStatement.setTimestamp(5, Timestamp.valueOf(post.getCreated()));
+            preparedStatement.setInt(3, post.getCity().getId());
+            preparedStatement.setTimestamp(4, Timestamp.valueOf(post.getCreated()));
+            preparedStatement.setBoolean(5, post.isVisible());
             preparedStatement.execute();
             try (ResultSet id = preparedStatement.getGeneratedKeys()) {
                 if (id.next()) {
@@ -90,9 +91,9 @@ public class PostDBStore {
                             it.getInt("id"),
                             it.getString("name"),
                             it.getString("describe"),
-                            it.getBoolean("visible"),
-                            new City(it.getInt("city_id")),
-                            it.getTimestamp("created").toLocalDateTime()
+                            new City(it.getInt("city_id"), null),
+                            it.getTimestamp("created").toLocalDateTime(),
+                            it.getBoolean("visible")
                     ));
                 }
             }

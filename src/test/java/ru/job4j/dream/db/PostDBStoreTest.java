@@ -20,7 +20,7 @@ public class PostDBStoreTest {
     @Test
     public void whenCreatePost() {
         PostDBStore store = new PostDBStore(new Main().loadPool());
-        Post post = new Post(1, "Java Job", "desc", true, new City(1, "Penza"), LocalDateTime.now());
+        Post post = new Post(1, "Java Job", "desc", new City(1, "Penza"), LocalDateTime.now(), true);
         store.add(post);
         Optional<Post> postInDb = store.findById(post.getId());
         assertThat(postInDb.get().getName(), is(post.getName()));
@@ -29,7 +29,7 @@ public class PostDBStoreTest {
     @Test
     public void whenFindByIdWithoutPostThenOptionalEmpty() {
         PostDBStore store = new PostDBStore(new Main().loadPool());
-        Post post = new Post(15, "Middle", "Describe", true, new City(2, "Moscow"), LocalDateTime.now());
+        Post post = new Post(15, "Middle", "Describe", new City(2, "Moscow"), LocalDateTime.now(), true);
         Optional<Post> postInDb = store.findById(post.getId());
         assertThat(postInDb, is(Optional.empty()));
     }
@@ -37,9 +37,9 @@ public class PostDBStoreTest {
     @Test
     public void whenUpdatePost() {
         PostDBStore store = new PostDBStore(new Main().loadPool());
-        Post post = new Post(1, "Java Job", "desc", true, new City(1, "Penza"), LocalDateTime.now());
+        Post post = new Post(1, "Java Job", "desc", new City(1, "Penza"), LocalDateTime.now(), true);
         store.add(post);
-        Post postUpdate = new Post(post.getId(), "MTS", "desc", true, post.getCity(), post.getCreated());
+        Post postUpdate = new Post(post.getId(), "MTS", "desc", post.getCity(), post.getCreated(), true);
         store.update(postUpdate);
         Optional<Post> postInDb = store.findById(post.getId());
         assertThat(postInDb.get().getName(), is(postUpdate.getName()));

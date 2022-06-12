@@ -59,19 +59,16 @@
                 <td th:text="${post.id}"></td>
                 <td th:text="${post.name}" />
                 <td th:text="${post.desc}" />
-                <td th:text="${post.city.getName()}" />
+                <td th:text="${post.city.name}" />
                 <td th:text="${#temporals.format(post.created, 'dd-MM-yyyy HH:mm:ss')}" />
                 <td>
                     <a th:href="@{|/updatePost/${post.id}|}">
                         <i class="fa fa-edit"></i>
                     </a>
-                    <span th:text="${post.name}"></span>
                     <span th:if="${post.visible}">
-                        <i class="fa fa-check-square-o"></i>
-                    </span>
+                    <i class="fa fa-check-square-o"></i></span>
                     <span th:if="${!post.visible}">
-                        <i class="fa fa-square-o"></i>
-                    </span>
+                    <i class="fa fa-square-o"></i></span>
                 </td>
             </tr>
 
