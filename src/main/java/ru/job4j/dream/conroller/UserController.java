@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.job4j.dream.model.City;
+import ru.job4j.dream.model.Post;
 import ru.job4j.dream.model.User;
 import ru.job4j.dream.service.CityService;
 import ru.job4j.dream.service.UserService;
@@ -26,6 +28,13 @@ public class UserController {
     public UserController(UserService userService, CityService cityService) {
         this.userService = userService;
         this.cityService = cityService;
+    }
+
+    @GetMapping("/addUser")
+    public String addUser(Model model, @RequestParam(name = "fail", required = false) Boolean fail) {
+        model.addAttribute("fail", fail != null);
+        model.addAttribute("user", new User());
+        return "addUser";
     }
 
     @PostMapping("/registration")

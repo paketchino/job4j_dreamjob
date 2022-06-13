@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
-    name_users text,
-    email TEXT,
+    name_users varchar,
+    email varchar,
     password TEXT,
     city_id integer
 );
