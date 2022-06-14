@@ -29,7 +29,7 @@ public class UserDBStore {
     public List<User> findAll() {
         List<User> users = new ArrayList<>();
         try (Connection cn = pool.getConnection();
-             PreparedStatement preparedStatement = cn.prepareStatement("select * from users")) {
+             PreparedStatement preparedStatement = cn.prepareStatement("select * from USERS")) {
             try (ResultSet it = preparedStatement.executeQuery()) {
                 while (it.next()) {
                     users.add(
@@ -53,7 +53,7 @@ public class UserDBStore {
         Optional<User> rsl = Optional.empty();
         try (Connection cn = pool.getConnection();
              PreparedStatement preparedStatement =
-                     cn.prepareStatement("insert into users(name_users, email, password, city_id) values (?, ?, ?, ?)",
+                     cn.prepareStatement("insert into USERS(name_users, email, password, city_id) values (?, ?, ?, ?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
             preparedStatement.setString(1, user.getName());
@@ -78,7 +78,7 @@ public class UserDBStore {
         Optional<User> rsl = Optional.empty();
         try (Connection cn = pool.getConnection();
              PreparedStatement preparedStatement =
-                     cn.prepareStatement("SELECT * FROM users WHERE id = ?")
+                     cn.prepareStatement("select * from USERS where id = ?")
         ) {
             preparedStatement.setInt(1, id);
             try (ResultSet it = preparedStatement.executeQuery()) {
@@ -103,7 +103,7 @@ public class UserDBStore {
         Optional<User> rsl = Optional.empty();
         try (Connection cn = pool.getConnection();
              PreparedStatement preparedStatement =
-                     cn.prepareStatement("UPDATE users SET name_users, set EMAIL = ?, PASSWORD = ?, CITY_ID = ? WHERE ID = ?")) {
+                     cn.prepareStatement("update USERS set NAME_USERS = ?, EMAIL = ?, PASSWORD = ?, CITY_ID = ? where ID = ?")) {
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getEmail());
             preparedStatement.setString(3, user.getPassword());

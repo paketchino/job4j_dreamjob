@@ -1,4 +1,4 @@
-package ru.job4j.dream.db;
+package ru.job4j.dream.persistence.db;
 
 import org.junit.Ignore;
 import org.junit.Test;

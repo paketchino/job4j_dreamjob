@@ -31,15 +31,20 @@ public class UserController {
     }
 
     @GetMapping("/addUser")
-    public String addUser(Model model, @RequestParam(name = "fail", required = false) Boolean fail) {
+    public String addUser(Model model, @RequestParam(name = "fail", required = false) Boolean fail,
+                          HttpSession session, User  user) {
+        SetUser setUser = new SetUser();
+        setUser.findUser(user, session);
         model.addAttribute("fail", fail != null);
         model.addAttribute("user", new User());
         return "addUser";
     }
 
     @PostMapping("/registration")
-    public String registration(Model model, @ModelAttribute User user) {
+    public String registration(Model model, @ModelAttribute User user, HttpSession session) {
         Optional<User> regUser = userService.add(user);
+        SetUser setUser = new SetUser();
+        setUser.findUser(user, session);
         if (regUser.get().getId() == 0) {
             model.addAttribute("message", "Пользователь с такой почтой уже существует");
             return "redirect:/fail";
@@ -48,14 +53,19 @@ public class UserController {
     }
 
     @GetMapping("/fail")
-    public String failRegistration() {
+    public String failRegistration(User user, HttpSession session) {
+        SetUser setUser = new SetUser();
+        setUser.findUser(user, session);
         return "fail";
     }
 
 
     @GetMapping("/loginPage")
-    public String loginPage(Model model, @RequestParam(name = "fail", required = false) Boolean fail) {
+    public String loginPage(Model model, @RequestParam(name = "fail", required = false) Boolean fail,
+                            HttpSession session, User user) {
         model.addAttribute("fail", fail != null);
+        SetUser setUser = new SetUser();
+        setUser.findUser(user, session);
         return "login";
     }
     
@@ -68,12 +78,16 @@ public class UserController {
             return "redirect:/loginPage?fail=true";
         }
         HttpSession session = req.getSession();
+        SetUser setUser = new SetUser();
+        setUser.findUser(user, session);
         session.setAttribute("user", userDb.get());
         return "redirect:/index";
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session) {
+    public String logout(HttpSession session, User user) {
+        SetUser setUser = new SetUser();
+        setUser.findUser(user, session);
         session.invalidate();
         return "redirect:/loginPage";
     }

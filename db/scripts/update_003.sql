@@ -1,8 +1,8 @@
-CREATE TABLE IF NOT EXISTS users (
-    id SERIAL PRIMARY KEY,
+create table if not exists USERS (
+    id serial primary key,
     name_users varchar,
     email varchar,
-    password TEXT,
+    password text,
     city_id integer
 );
 
