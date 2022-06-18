@@ -29,8 +29,8 @@ public class PostService {
         return posts;
     }
 
-    public void add(Post post) {
-        postStore.add(post);
+    public Optional<Post> add(Post post) {
+        return postStore.add(post);
     }
 
     public Optional<Post> findById(int id) {

@@ -29,44 +29,44 @@ public class CandidateController {
     }
 
     @GetMapping("/candidates")
-    public String candidates(Model model, HttpSession session, User user) {
+    public String candidates(Model model, HttpSession session) {
         SetUser setUser = new SetUser();
-        setUser.findUser(user, session);
+        setUser.findUser(session);
         model.addAttribute("candidates", candidateService.findAll());
         return "candidates";
     }
 
     @GetMapping("/addCandidate")
-    public String addCandidate(Model model, HttpSession session, User user) {
+    public String addCandidate(Model model, HttpSession session) {
         SetUser setUser = new SetUser();
-        setUser.findUser(user, session);
+        setUser.findUser(session);
         model.addAttribute("Candidate", new Candidate(0, "", "", new byte[1024], true, LocalDateTime.now()));
         return "addCandidate";
     }
 
     @PostMapping("/createCandidate")
     public String createCandidate(@ModelAttribute Candidate candidate,
-                                  @RequestParam("file") MultipartFile file, HttpSession session, User user) throws Exception {
+                                  @RequestParam("file") MultipartFile file, HttpSession session) throws Exception {
         SetUser setUser = new SetUser();
-        setUser.findUser(user, session);
+        setUser.findUser(session);
         candidate.setPhoto(file.getBytes());
         candidateService.add(candidate);
         return "redirect:/candidates";
     }
 
     @GetMapping("/updateCandidate/{candidateId}")
-    public String updateCandidate(Model model, @PathVariable("candidateId") int id, HttpSession session, User user) {
+    public String updateCandidate(Model model, @PathVariable("candidateId") int id, HttpSession session) {
         SetUser setUser = new SetUser();
-        setUser.findUser(user, session);
+        setUser.findUser(session);
         model.addAttribute("candidate", candidateService.findById(id));
         return "updateCandidate";
     }
 
     @PostMapping("/updateCandidate")
     public String updateCandidate(@ModelAttribute Candidate candidate,
-                                  @RequestParam("file") MultipartFile file, HttpSession session, User user) throws Exception {
+                                  @RequestParam("file") MultipartFile file, HttpSession session) throws Exception {
         SetUser setUser = new SetUser();
-        setUser.findUser(user, session);
+        setUser.findUser(session);
         candidate.setPhoto(file.getBytes());
         candidateService.update(candidate);
         return "redirect:/candidates";

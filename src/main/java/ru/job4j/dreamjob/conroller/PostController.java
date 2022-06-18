@@ -28,25 +28,25 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    public String posts(Model model, HttpSession session, User user) {
+    public String posts(Model model, HttpSession session) {
         SetUser setUser = new SetUser();
-        setUser.findUser(user, session);
+        setUser.findUser(session);
         model.addAttribute("posts", postService.findAll());
         return "posts";
     }
 
     @GetMapping("/addPost")
-    public String addPost(Model model, HttpSession session, User user) {
+    public String addPost(Model model, HttpSession session) {
         SetUser setUser = new SetUser();
-        setUser.findUser(user, session);
+        setUser.findUser(session);
         model.addAttribute("cities", cityService.getAllCities());
         return "addPost";
     }
 
     @PostMapping("/createPost")
-    public String createPost(@ModelAttribute Post post, HttpSession session, User user) {
+    public String createPost(@ModelAttribute Post post, HttpSession session) {
         SetUser setUser = new SetUser();
-        setUser.findUser(user, session);
+        setUser.findUser(session);
         City city = cityService.findById(post.getCity().getId());
         post.setCity(city);
         postService.add(post);
@@ -54,18 +54,18 @@ public class PostController {
     }
 
     @GetMapping("/updatePost/{postId}")
-    public String updatePost(Model model, @PathVariable("postId") int id, HttpSession session, User user) {
+    public String updatePost(Model model, @PathVariable("postId") int id, HttpSession session) {
         SetUser setUser = new SetUser();
-        setUser.findUser(user, session);
+        setUser.findUser(session);
         model.addAttribute("post", postService.findById(id));
         model.addAttribute("cities", cityService.getAllCities());
         return "updatePost";
     }
 
     @PostMapping("/updatePost")
-    public String updatePost(@ModelAttribute Post post, HttpSession session, User user) {
+    public String updatePost(@ModelAttribute Post post, HttpSession session) {
         SetUser setUser = new SetUser();
-        setUser.findUser(user, session);
+        setUser.findUser(session);
         City city = cityService.findById(post.getCity().getId());
         post.setCity(city);
         postService.update(post);

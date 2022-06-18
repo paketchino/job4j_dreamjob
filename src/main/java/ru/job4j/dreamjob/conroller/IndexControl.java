@@ -14,7 +14,7 @@ public class IndexControl {
     @GetMapping("/index")
     public String index(Model model, HttpSession session, User user) {
         SetUser setUser = new SetUser();
-        setUser.findUser(user, session);
+        setUser.findUser(session);
         model.addAttribute("user", user);
         return "index";
     }

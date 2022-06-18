@@ -11,8 +11,11 @@ import ru.job4j.dreamjob.service.PostService;
 import ru.job4j.dreamjob.service.UserService;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -20,35 +23,61 @@ import static org.mockito.Mockito.*;
 
 public class PostControllerTest {
 
-    private HttpSession session;
-
-    @Ignore
     @Test
     public void whenPost() {
         List<Post> posts = Arrays.asList(
                 new Post(1, "New post"),
                 new Post(2, "New post")
         );
-        List<User> users = Arrays.asList(
-                new User(1, "Riman", "dasdasd", "dasdajsd@gmail.com", new City(1, "Penza"))
-        );
-        UserService userService = mock(UserService.class);
-        when(userService.findAll()).thenReturn(users);
         Model model = mock(Model.class);
+        HttpSession modelHttpSession = mock(HttpSession.class);
         PostService postService = mock(PostService.class);
         when(postService.findAll()).thenReturn(posts);
         CityService cityService = mock(CityService.class);
         PostController postController = new PostController(
                 postService, cityService
         );
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        String page = postController.posts(model, session, user);
+        String page = postController.posts(model, modelHttpSession);
         verify(model).addAttribute("posts", posts);
         assertThat(page, is("posts"));
+    }
+
+    @Test
+    public void whenCreatePost() {
+        Post input = new Post(1, "New Post", "desc", new City(1, "London"), LocalDateTime.now());
+        PostService postService = mock(PostService.class);
+        CityService cityService = mock(CityService.class);
+        PostController postController = new PostController(postService, cityService);
+        HttpSession session = mock(HttpSession.class);
+        String page = postController.createPost(input, session);
+        verify(postService).add(input);
+        assertThat(page, is("redirect:/posts"));
+    }
+
+    @Test
+    public void whenFindByIdPost() {
+        Post input = new Post(1, "New Post", "desc", new City(1, "London"), LocalDateTime.now());
+        PostService postService = mock(PostService.class);
+        CityService cityService = mock(CityService.class);
+        PostController postController = new PostController(postService, cityService);
+        HttpSession session = mock(HttpSession.class);
+        postService.add(input);
+        when(postService.findById(1)).thenReturn(Optional.of(input));
+        assertThat(Optional.of(input), is(postService.findById(1)));
+    }
+
+    @Ignore
+    @Test
+    public void whenPostUpdate() {
+        Post oldPost = new Post(1, "New Post", "desc", new City(1, "London"), LocalDateTime.now());
+        Post updatePost = new Post(1, "Update Post", "Update Describing", oldPost.getCity(), LocalDateTime.now());
+        PostService postService = mock(PostService.class);
+        CityService cityService = mock(CityService.class);
+        postService.add(oldPost);
+        when(postService.add(oldPost)).thenReturn(Optional.of(oldPost));
+        postService.update(updatePost);
+        when(postService.update(updatePost)).thenReturn(Optional.of(updatePost));
+        assertThat(postService.findAll(), is(updatePost));
     }
 
 }

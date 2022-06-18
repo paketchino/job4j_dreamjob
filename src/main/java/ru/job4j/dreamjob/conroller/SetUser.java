@@ -6,8 +6,8 @@ import javax.servlet.http.HttpSession;
 
 public class SetUser {
 
-    public void findUser(User user, HttpSession session) {
-        user = (User) session.getAttribute("user");
+    public void findUser(HttpSession session) {
+        User user = (User) session.getAttribute("user");
         if (user == null) {
             user = new User();
             user.setName("Гость");
