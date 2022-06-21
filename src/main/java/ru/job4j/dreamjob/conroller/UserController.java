@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.service.CityService;
 import ru.job4j.dreamjob.service.UserService;
@@ -29,25 +30,28 @@ public class UserController {
     }
 
     @GetMapping("/addUser")
-    public String addUser(Model model, @RequestParam(name = "fail", required = false) Boolean fail,
-                          HttpSession session, User  user) {
+    public String addUser(Model model,
+                          HttpSession session,
+                          @RequestParam(name = "fail", required = false) Boolean fail) {
         SetUser setUser = new SetUser();
         setUser.findUser(session);
         model.addAttribute("fail", fail != null);
+        model.addAttribute("cities", cityService.getAllCities());
         model.addAttribute("user", new User());
         return "addUser";
     }
 
     @PostMapping("/registration")
     public String registration(Model model, @ModelAttribute User user, HttpSession session) {
-        Optional<User> regUser = userService.add(user);
+        Optional regUser = userService.add(user);
         SetUser setUser = new SetUser();
         setUser.findUser(session);
-        if (regUser.get().getId() == 0) {
+
+        if (regUser.isEmpty()) {
             model.addAttribute("message", "Пользователь с такой почтой уже существует");
             return "redirect:/fail";
         }
-        return "redirect:/success";
+        return "redirect:/index";
     }
 
     @GetMapping("/fail")
@@ -59,14 +63,17 @@ public class UserController {
 
 
     @GetMapping("/loginPage")
-    public String loginPage(Model model, @RequestParam(name = "fail", required = false) Boolean fail,
+    public String loginPage(Model model,
+                            @RequestParam(name = "fail", required = false) Boolean fail,
                             HttpSession session) {
         model.addAttribute("fail", fail != null);
         SetUser setUser = new SetUser();
         setUser.findUser(session);
+        model.addAttribute("user", new User(
+                0, "Enter email", "Enter password"));
         return "login";
     }
-    
+
     @PostMapping("/login")
     public String login(@ModelAttribute User user, HttpServletRequest req) {
         Optional<User> userDb = userService.findUserByEmailAndPwd(
@@ -89,4 +96,5 @@ public class UserController {
         session.invalidate();
         return "redirect:/loginPage";
     }
+
 }

@@ -62,11 +62,10 @@ public class PostControllerTest {
         PostController postController = new PostController(postService, cityService);
         HttpSession session = mock(HttpSession.class);
         postService.add(input);
-        when(postService.findById(1)).thenReturn(Optional.of(input));
+        when(postService.findById(1)).thenReturn(input);
         assertThat(Optional.of(input), is(postService.findById(1)));
     }
 
-    @Ignore
     @Test
     public void whenPostUpdate() {
         Post oldPost = new Post(1, "New Post", "desc", new City(1, "London"), LocalDateTime.now());

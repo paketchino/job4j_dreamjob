@@ -3,10 +3,7 @@ package ru.job4j.dreamjob.conroller;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.model.Post;
 import ru.job4j.dreamjob.model.User;
@@ -29,16 +26,14 @@ public class PostController {
 
     @GetMapping("/posts")
     public String posts(Model model, HttpSession session) {
-        SetUser setUser = new SetUser();
-        setUser.findUser(session);
+        findUser(model, session);
         model.addAttribute("posts", postService.findAll());
         return "posts";
     }
 
     @GetMapping("/addPost")
     public String addPost(Model model, HttpSession session) {
-        SetUser setUser = new SetUser();
-        setUser.findUser(session);
+        findUser(model, session);
         model.addAttribute("cities", cityService.getAllCities());
         return "addPost";
     }
@@ -55,20 +50,25 @@ public class PostController {
 
     @GetMapping("/updatePost/{postId}")
     public String updatePost(Model model, @PathVariable("postId") int id, HttpSession session) {
-        SetUser setUser = new SetUser();
-        setUser.findUser(session);
+        findUser(model, session);
         model.addAttribute("post", postService.findById(id));
         model.addAttribute("cities", cityService.getAllCities());
         return "updatePost";
     }
 
     @PostMapping("/updatePost")
-    public String updatePost(@ModelAttribute Post post, HttpSession session) {
-        SetUser setUser = new SetUser();
-        setUser.findUser(session);
-        City city = cityService.findById(post.getCity().getId());
-        post.setCity(city);
+    public String updatePost(@ModelAttribute Post post) {
+        post.setCity(cityService.findById(post.getCity().getId()));
         postService.update(post);
         return "redirect:/posts";
+    }
+
+    private void findUser(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName("Гость");
+        }
+        model.addAttribute("user", user);
     }
 }

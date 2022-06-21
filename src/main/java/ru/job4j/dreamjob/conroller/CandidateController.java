@@ -13,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.service.CandidateService;
-
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -30,16 +29,14 @@ public class CandidateController {
 
     @GetMapping("/candidates")
     public String candidates(Model model, HttpSession session) {
-        SetUser setUser = new SetUser();
-        setUser.findUser(session);
+        findUser(model, session);
         model.addAttribute("candidates", candidateService.findAll());
         return "candidates";
     }
 
     @GetMapping("/addCandidate")
     public String addCandidate(Model model, HttpSession session) {
-        SetUser setUser = new SetUser();
-        setUser.findUser(session);
+        findUser(model, session);
         model.addAttribute("Candidate", new Candidate(0, "", "", new byte[1024], true, LocalDateTime.now()));
         return "addCandidate";
     }
@@ -56,8 +53,7 @@ public class CandidateController {
 
     @GetMapping("/updateCandidate/{candidateId}")
     public String updateCandidate(Model model, @PathVariable("candidateId") int id, HttpSession session) {
-        SetUser setUser = new SetUser();
-        setUser.findUser(session);
+        findUser(model, session);
         model.addAttribute("candidate", candidateService.findById(id));
         return "updateCandidate";
     }
@@ -73,7 +69,7 @@ public class CandidateController {
     }
 
     @GetMapping("/photoCandidate/{candidateId}")
-    public ResponseEntity<Resource> download(@PathVariable("candidateId") Integer candidateId)  {
+    public ResponseEntity<Resource> download(@PathVariable("candidateId") Integer candidateId) {
         Optional<Candidate> candidate = candidateService.findById(candidateId);
         return ResponseEntity.ok()
                 .headers(new HttpHeaders())
@@ -82,4 +78,12 @@ public class CandidateController {
                 .body(new ByteArrayResource(candidate.get().getPhoto()));
     }
 
+    private void findUser(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName("Гость");
+        }
+        model.addAttribute("user", user);
+    }
 }

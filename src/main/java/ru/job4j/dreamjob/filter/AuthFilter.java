@@ -16,7 +16,7 @@ public class AuthFilter implements Filter {
             ServletResponse servletResponse,
             FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
-        HttpServletResponse res = (HttpServletResponse) servletRequest;
+        HttpServletResponse res = (HttpServletResponse) servletResponse;
         String uri = req.getRequestURI();
         if (uri.endsWith("loginPage")
                 || uri.endsWith("login")

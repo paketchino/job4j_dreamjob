@@ -4,6 +4,8 @@ import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.dreamjob.persistence.db.PostDBStore;
 import ru.job4j.dreamjob.model.Post;
+
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +21,7 @@ public class PostService {
         this.cityService = cityService;
     }
 
-    public List<Post> findAll() {
+    public Collection<Post> findAll() {
         List<Post> posts = postStore.findAll();
         posts.forEach(
                 post -> post.setCity(
@@ -33,7 +35,7 @@ public class PostService {
         return postStore.add(post);
     }
 
-    public Optional<Post> findById(int id) {
+    public Post findById(int id) {
         return postStore.findById(id);
     }
 

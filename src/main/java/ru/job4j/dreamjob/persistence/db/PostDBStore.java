@@ -78,8 +78,8 @@ public class PostDBStore {
         return rsl;
     }
 
-    public Optional<Post> findById(int id) {
-        Optional<Post> rsl = Optional.empty();
+    public Post findById(int id) {
+        Post post = null;
         try (Connection cn = pool.getConnection();
              PreparedStatement preparedStatement =
                      cn.prepareStatement("SELECT * from POST where id = ?")
@@ -87,20 +87,20 @@ public class PostDBStore {
             preparedStatement.setInt(1, id);
             try (ResultSet it = preparedStatement.executeQuery()) {
                 if (it.next()) {
-                    rsl = Optional.of(new Post(
+                    post = new Post(
                             it.getInt("id"),
                             it.getString("name"),
                             it.getString("describe"),
                             new City(it.getInt("city_id"), null),
                             it.getTimestamp("created").toLocalDateTime(),
                             it.getBoolean("visible")
-                    ));
+                    );
                 }
             }
         } catch (Exception e) {
             LOGGER.catching(e);
         }
-        return rsl;
+        return post;
     }
 
     public Optional<Post> update(Post post) {
