@@ -34,7 +34,7 @@ public class Main {
     }
 
     @Bean
-    public BasicDataSource loadPool() {
+    public BasicDataSource  loadPool() {
         Properties cfg = loadDbProperties();
         BasicDataSource pool = new BasicDataSource();
         pool.setDriverClassName(cfg.getProperty("jdbc.driver"));

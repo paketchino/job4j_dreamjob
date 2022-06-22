@@ -31,10 +31,10 @@
                 <a class="nav-item nav-link" th:href="@{/addPost}">Добавить вакансию</a>
                 <a class="nav-item nav-link" th:href="@{/candidates}">Кандидаты</a>
                 <a class="nav-item nav-link active" th:href="@{/addCandidate}">Добавить кандидата <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link " th:href="@{/addUser}">Регистрация </a>
                 <a class="nav-item nav-link" th:if="${user.name == 'Гость'}" th:href="@{/loginPage}">
+                    <a class="nav-item nav-link " th:href="@{/addUser}">Регистрация </a>
                     <span th:text="${user.name}"></span>
-                    <span> | Войти</span>
+                    <span> | Выйти</span>
                 </a>
                 <a class="nav-item nav-link" th:if="${user.name != 'Гость'}" th:href="@{/logout}">
                     <span th:text="${user.name}"></span>
